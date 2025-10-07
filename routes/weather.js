@@ -1,4 +1,3 @@
-// routes/weather.js - Fetch weather for a user's city using OpenWeatherMap
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
@@ -8,10 +7,8 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-// Protect route
 router.use(verifyToken);
 
-// GET /weather/:id - fetch weather for user by id
 router.get('/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -35,3 +32,4 @@ router.get('/:id', async (req, res) => {
 });
 
 module.exports = router;
+

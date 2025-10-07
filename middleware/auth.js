@@ -1,4 +1,3 @@
-// middleware/auth.js - JWT verification middleware
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
@@ -24,3 +23,4 @@ const verifyToken = (req, res, next) => {
 };
 
 module.exports = verifyToken;
+

@@ -1,4 +1,3 @@
-// server.js - Entry point for User & Weather Dashboard API
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -14,15 +13,12 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Routes
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/weather', weatherRoutes);
 
-// Basic health check
 app.get('/', (req, res) => res.send({ status: 'ok', message: 'User & Weather Dashboard API' }));
 
-// Connect to MongoDB and start server
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/user-weather-dashboard';
 
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -34,3 +30,4 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     console.error('Failed to connect to MongoDB', err);
     process.exit(1);
   });
+

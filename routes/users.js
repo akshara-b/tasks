@@ -1,13 +1,10 @@
-// routes/users.js - CRUD and bulk operations for User model
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const verifyToken = require('../middleware/auth');
 
-// Protect all routes below
 router.use(verifyToken);
 
-// POST /users - create a user
 router.post('/', async (req, res) => {
   try {
     const { name, email, city, role } = req.body;
@@ -18,7 +15,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// GET /users - get all users
 router.get('/', async (req, res) => {
   try {
     const users = await User.find();
@@ -28,10 +24,9 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST /users/bulk - bulk create
 router.post('/bulk', async (req, res) => {
   try {
-    const users = req.body; // expect array of user objects
+    const users = req.body; 
     if (!Array.isArray(users)) return res.status(400).json({ error: 'Array of users expected' });
     const inserted = await User.insertMany(users);
     res.status(201).json(inserted);
@@ -40,7 +35,6 @@ router.post('/bulk', async (req, res) => {
   }
 });
 
-// PUT /users/bulk - bulk update
 router.put('/bulk', async (req, res) => {
   try {
     const updates = req.body; // expect array of { _id, ...fields }
@@ -57,7 +51,6 @@ router.put('/bulk', async (req, res) => {
   }
 });
 
-// GET /users/:id - get user by id
 router.get('/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -68,7 +61,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// PUT /users/:id - update user
 router.put('/:id', async (req, res) => {
   try {
     const updates = req.body;
@@ -80,7 +72,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE /users/:id - delete user
 router.delete('/:id', async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
@@ -92,3 +83,4 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
+
